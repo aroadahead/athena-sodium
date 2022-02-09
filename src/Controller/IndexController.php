@@ -2,12 +2,7 @@
 
 namespace AthenaSodium\Controller;
 
-use Laminas\View\Model\JsonModel;
-
-class IndexController extends SodiumController
+class IndexController extends SodiumModuleController
 {
-    public function aliveAction(): JsonModel
-    {
-        return new JsonModel(['hello' => $this -> sodiumService() -> hello()]);
-    }
+
 }
