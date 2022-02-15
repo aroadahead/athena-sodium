@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use AthenaSodium\Controller\AuthController;
+use AthenaSodium\Controller\Factory\AuthControllerFactory;
 use AthenaSodium\Controller\Factory\IndexControllerFactory;
 use AthenaSodium\Controller\IndexController;
 use AthenaSodium\Service\Factory\SodiumServiceFactory;
@@ -18,7 +19,8 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            IndexController::class => IndexControllerFactory::class
+            IndexController::class => IndexControllerFactory::class,
+            AuthController::class => AuthControllerFactory::class
         ]
     ],
     'service_manager' => [
