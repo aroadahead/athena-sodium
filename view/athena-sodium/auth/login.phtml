@@ -10,12 +10,12 @@ $form -> setAction($this -> url('login'));
         <div class="form-group" style="margin-top:15px">
             <?= $this -> formLabel($form -> get('credential')) ?>
             <?= $this -> formElement($form -> get('credential')) ?>
-            <small id="emailHelp" class="form-text text-muted">we'll never share your information with anyone
-                else.</small>
+            <?= $this -> formElementErrors($form -> get('credential')) ?>
         </div>
         <div class="form-group">
             <?= $this -> formLabel($form -> get('password')) ?>
             <?= $this -> formElement($form -> get('password')) ?>
+            <?= $this -> formElementErrors($form -> get('password')) ?>
         </div>
         <div class="form-group form-check">
             <?= $this -> formElement($form -> get('rememberMe')) ?>
