@@ -65,13 +65,18 @@ class User extends ApplicationModel
         $this -> getDataSet() -> set('pin', $pin);
     }
 
-    public function getFirstName()
+    public function getFirstName():string
     {
         return $this -> getDataSet() -> get('first_name');
     }
 
-    public function getEmail()
+    public function getEmail():string
     {
         return $this -> getDataSet() -> get('email');
+    }
+
+    public function getStatus():int
+    {
+        return $this->getDataSet()->get('status');
     }
 }
