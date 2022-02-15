@@ -1,0 +1,27 @@
+<?php
+$form = $this -> form;
+$form -> prepare();
+$form -> setAction($this -> url('login'));
+?>
+<?= $this -> form() -> openTag($form); ?>
+<?= $this -> formElement($form -> get('csrf')) ?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group" style="margin-top:15px">
+            <?= $this -> formLabel($form -> get('credential')) ?>
+            <?= $this -> formElement($form -> get('credential')) ?>
+            <small id="emailHelp" class="form-text text-muted">we'll never share your information with anyone
+                else.</small>
+        </div>
+        <div class="form-group">
+            <?= $this -> formLabel($form -> get('password')) ?>
+            <?= $this -> formElement($form -> get('password')) ?>
+        </div>
+        <div class="form-group form-check">
+            <?= $this -> formElement($form -> get('rememberMe')) ?>
+            <?= $this -> formLabel($form -> get('rememberMe')) ?>
+        </div>
+        <?= $this -> formButton($form -> get('submit')); ?>
+    </div>
+</div>
+<?= $this -> form() -> closeTag(); ?>

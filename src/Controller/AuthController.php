@@ -2,6 +2,7 @@
 
 namespace AthenaSodium\Controller;
 
+use Application\Form\StandardConfigForm;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Http\PhpEnvironment\Response;
 use Laminas\View\Model\ViewModel;
@@ -15,7 +16,8 @@ class AuthController extends SodiumModuleController
         if ($authService -> hasIdentity()) {
             return $this -> sodiumService() -> redirectToDashboard();
         }
-        return $this -> newViewModel();
+        $loginForm = new StandardConfigForm('login');
+        return $this -> newViewModel(['form' => $loginForm]);
     }
 
     public function logoutAction(): ViewModel

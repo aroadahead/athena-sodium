@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use AthenaSodium\Controller\AuthController;
 use AthenaSodium\Controller\Factory\IndexControllerFactory;
 use AthenaSodium\Controller\IndexController;
 use AthenaSodium\Service\Factory\SodiumServiceFactory;
@@ -39,6 +40,16 @@ return [
                     ],
                 ],
             ],
+            'login' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => $lamins -> route('login', 'sodium'),
+                    'defaults' => [
+                        'controller' => AuthController::class,
+                        'action' => 'login'
+                    ]
+                ]
+            ]
         ]
     ]
 ];
