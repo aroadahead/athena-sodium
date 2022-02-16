@@ -67,8 +67,14 @@ class AuthController extends SodiumModuleController
         return $this -> newViewModel(['form' => $loginForm, 'isLoginError' => $isLoginError]);
     }
 
-    public function logoutAction(): ViewModel
+    public function logoutAction(): Response
     {
-        return $this -> newViewModel();
+        $redirectToOnLogout = $this -> container -> get('conf') -> facade()
+            -> getApplicationConfig('auth.redirect_route_on_logout');
+        $authService = new AuthenticationService();
+        if ($authService -> hasIdentity()) {
+            $authService -> clearIdentity();
+        }
+        return $this -> redirect() -> toRoute($redirectToOnLogout);
     }
 }
