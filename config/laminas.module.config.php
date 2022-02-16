@@ -51,6 +51,16 @@ return [
                         'action' => 'login'
                     ]
                 ]
+            ],
+            'logout' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => $lamins -> route('logout', 'sodium'),
+                    'defaults' => [
+                        'controller' => AuthController::class,
+                        'action' => 'logout'
+                    ]
+                ]
             ]
         ]
     ]
