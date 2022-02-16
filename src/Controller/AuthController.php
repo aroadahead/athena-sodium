@@ -17,7 +17,7 @@ class AuthController extends SodiumModuleController
         $redirectUrl = $this -> redirectUrl();
         $authService = new AuthenticationService();
         if ($authService -> hasIdentity()) {
-            return $this -> sodiumService() -> redirectToDashboard();
+            return $this -> toDashboard();
         }
         $isLoginError = false;
         $loginForm = new StandardConfigForm('login');
