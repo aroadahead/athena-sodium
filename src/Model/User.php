@@ -77,6 +77,6 @@ class User extends ApplicationModel
 
     public function getStatus():int
     {
-        return $this->getDataSet()->get('status');
+        return (int)$this->getDataSet()->get('status');
     }
 }
