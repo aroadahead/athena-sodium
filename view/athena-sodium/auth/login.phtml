@@ -8,14 +8,14 @@ $form -> setAction($this -> url('login'));
 <div class="row">
     <div class="col-md-12">
         <div class="form-group" style="margin-top:15px">
+            <?= $this -> formLabel($form -> get('identity')) ?>
+            <?= $this -> formElement($form -> get('identity')) ?>
+            <?= $this -> formElementErrors($form -> get('identity')) ?>
+        </div>
+        <div class="form-group">
             <?= $this -> formLabel($form -> get('credential')) ?>
             <?= $this -> formElement($form -> get('credential')) ?>
             <?= $this -> formElementErrors($form -> get('credential')) ?>
-        </div>
-        <div class="form-group">
-            <?= $this -> formLabel($form -> get('password')) ?>
-            <?= $this -> formElement($form -> get('password')) ?>
-            <?= $this -> formElementErrors($form -> get('password')) ?>
         </div>
         <div class="form-group form-check">
             <?= $this -> formElement($form -> get('rememberMe')) ?>
