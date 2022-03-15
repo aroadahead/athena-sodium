@@ -20,7 +20,7 @@ class FacebookController extends SodiumModuleController
      */
     public function loginAction(): Response
     {
-        $constructorArgs = $this -> configFacade() -> getApisConfig('facebook');
+        $constructorArgs = $this -> configFacade() -> getApisConfig('facebook')->toArray();
         $redirectUri = $constructorArgs['redirect_uri'];
         $fbPermissions = array_values($constructorArgs['permissions']);
         unset($constructorArgs['redirect_uri'], $constructorArgs['permissions'], $constructorArgs['graph_fields']);
@@ -36,7 +36,7 @@ class FacebookController extends SodiumModuleController
      */
     public function authAction(): Response
     {
-        $constructorArgs = $this -> configFacade() -> getApisConfig('facebook');
+        $constructorArgs = $this -> configFacade() -> getApisConfig('facebook')->toArray();
         $fields = $constructorArgs['graph_fields'];
         unset($constructorArgs['redirect_uri'], $constructorArgs['permissions'], $constructorArgs['graph_fields']);
         $fb = new Facebook($constructorArgs);
