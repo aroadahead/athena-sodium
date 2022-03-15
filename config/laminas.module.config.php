@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use AthenaBridge\Laminas\Router\Http\Literal;
+use AthenaBridge\Laminas\Router\Http\Segment;
 use AthenaSodium\Controller\AuthController;
 use AthenaSodium\Controller\FacebookController;
 use AthenaSodium\Controller\Factory\AuthControllerFactory;
@@ -57,6 +58,16 @@ return [
                         'action' => 'login'
                     ]
                 ]
+            ],
+            'directLogin' => [
+              'type' => Segment::class,
+              'options' => [
+                  'route' => $laminas->route('directLogin','sodium'),
+                  'defaults' => [
+                      'controller' => AuthController::class,
+                      'action' => 'directLogin'
+                  ]
+              ]
             ],
             'fbLogin' => [
                 'type' => Literal::class,
