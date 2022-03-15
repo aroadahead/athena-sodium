@@ -75,9 +75,9 @@ class User extends ApplicationEntity
      * @param bool $true
      * @return void
      */
-    public function setPinValidated(bool $true): void
+    public function set2fa(bool $true): void
     {
-        $this -> set('pin_validated', $true);
+        $this -> set('2fa', $true);
     }
 
     public function setJustLoggedIn(bool $true)
