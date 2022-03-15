@@ -27,7 +27,7 @@ class FacebookController extends SodiumModuleController
         $fb = new Facebook($constructorArgs);
         $helper = $fb -> getRedirectLoginHelper();
         $url = $helper -> getLoginUrl($redirectUri, $fbPermissions);
-        return $this -> verifyAndRedirectUrl($url);
+        return $this -> verifyAndRedirectUrl($url, false);
     }
 
     /**
@@ -46,7 +46,7 @@ class FacebookController extends SodiumModuleController
             $accessToken = $helper -> getAccessToken();
         } catch (FacebookSDKException $e) {
             $session -> setExpirationSeconds(0);
-            return $this -> login();
+            return $this -> toLogin();
         }
         $session -> setAccessToken($accessToken);
         $fb -> setDefaultAccessToken($accessToken);

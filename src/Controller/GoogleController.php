@@ -33,7 +33,7 @@ class GoogleController extends SodiumModuleController
         foreach ($gdataConfig -> get('scopes') as $scope) {
             $client -> addScope($scope);
         }
-        return $this -> verifyAndRedirectUrl($client -> createAuthUrl());
+        return $this -> verifyAndRedirectUrl($client -> createAuthUrl(), false);
     }
 
     /**
