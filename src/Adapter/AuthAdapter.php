@@ -48,7 +48,7 @@ class AuthAdapter extends CredentialTreatmentAdapter implements AdapterInterface
     /**
      * @inheritDoc
      */
-    public function authenticate():mixed
+    public function authenticate(): mixed
     {
         $facade = $this -> container -> get('conf') -> facade();
         if ($facade -> getApplicationConfig('auth.use_email_for_login')) {

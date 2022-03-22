@@ -1,19 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AthenaSodium\Controller;
 
+use AthenaBridge\Google\Client\Client;
+use AthenaBridge\Google\Service\Oauth2;
 use AthenaBridge\Laminas\Config\Config;
 use AthenaBridge\Laminas\Uri\Uri;
 use AthenaCore\Mvc\Application\Config\Exception\NodeNotFound;
 use AthenaSodium\Model\User;
 use AthenaSodium\Model\UserProfile;
-use Google_Client;
 use http\Exception\InvalidArgumentException;
 use Laminas\Http\Response;
 
 class GoogleController extends SodiumModuleController
 {
     /**
+     * Google oauth login.
+     *
      * @throws NodeNotFound
      */
     public function loginAction(): Response
@@ -26,40 +31,47 @@ class GoogleController extends SodiumModuleController
             $this -> throwException(InvalidArgumentException::class, 'google auth redirect uri invalid');
         }
 
-        $client = new Google_Client();
+        $client = new Client();
         $client -> setClientId($gdataConfig -> get('client_id'));
         $client -> setClientSecret($gdataConfig -> get('client_secret'));
         $client -> setRedirectUri($redirectUri);
-        foreach ($gdataConfig -> get('scopes') as $scope) {
+        $scopes = $gdataConfig -> get('scopes');
+        foreach ($scopes as $scope) {
             $client -> addScope($scope);
         }
         return $this -> verifyAndRedirectUrl($client -> createAuthUrl(), false);
     }
 
     /**
+     * Google oauth authenticate.
+     *
      * @throws NodeNotFound
      */
     public function authAction(): Response
     {
         $gdataConfig = $this -> configFacade() -> getApisConfig('google.oauth');
         $this -> validateGoogleOauthCreds($gdataConfig);
-        $client = new Google_Client();
+        $client = new Client();
         $client -> setClientId($gdataConfig -> get('client_id'));
         $client -> setClientSecret($gdataConfig -> get('client_secret'));
         $client -> setRedirectUri($gdataConfig -> get('redirect_uri'));
-        foreach ($gdataConfig -> get('scopes') as $scope) {
+        $scopes = $gdataConfig -> get('scopes');
+        foreach ($scopes as $scope) {
             $client -> addScope($scope);
         }
         $code = $this -> getRequest() -> getQuery('code');
         $token = $client -> fetchAccessTokenWithAuthCode($code);
         $client -> setAccessToken($token['access_token']);
-        $oauth = new \Google_Service_Oauth2($client);
+        $oauth = new Oauth2($client);
         $info = $oauth -> userinfo -> get();
         $profile = UserProfile ::byGoogleId($info -> id);
         $user = User ::byId($profile -> userid, false);
         return $this -> redirect() -> toRoute('directLogin', ['hash' => $user -> getHash()]);
     }
 
+    /**
+     * @param Config $gdataConfig
+     */
     private function validateGoogleOauthCreds(Config $gdataConfig): void
     {
         if (!$gdataConfig -> has('client_id')
